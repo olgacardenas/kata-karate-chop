@@ -1,22 +1,30 @@
 angular.module('clinicatdd.filters')
   .controller('MyTestCtrl', ['$scope', function ($scope, myinfo) {
     $scope.chop = function (needle, haystack) {
-      var middle = Math.floor(haystack.length / 2);
-      var init = haystack.slice(0, middle);
-      var end = haystack.slice(middle + 1, haystack.length);
+      return recursive(needle, haystack, 0, haystack.length);
+    };
 
-      if (haystack[middle] == needle) {
+    var recursive = function (needle, haystack, initPos, endPos) {
+      var middle = parseInt((endPos + initPos) / 2);
+
+      if (haystack.length === 0) {
+        return -1;
+      }
+      else if (haystack[middle] === needle) {
         return middle;
       }
-      else if (haystack[middle] < needle){
-        return $scope.chop(needle, end);
+      else if (initPos == endPos) {
+        return haystack[initPos] === needle ? initPos : -1;
       }
-      else if (haystack[middle] > needle)
-      {
-        return $scope.chop(needle, init)
+      else if (haystack[middle] < needle) {
+        return recursive(needle, haystack, middle+1, haystack.length);
+      }
+      else if (haystack[middle] > needle) {
+        return recursive(needle, haystack, 0, middle);
       }
       else {
         return -1;
       }
-    };
+    }
+
   }]);

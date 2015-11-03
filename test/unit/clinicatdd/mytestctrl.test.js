@@ -25,14 +25,18 @@ describe('MyTestCtrl', function () {
     });
 
     it('should return -1 for an not empty array', function () {
-      expect($scope.chop(5, [1, 2])).toBe(-1);
+      expect($scope.chop(1, [2, 3, 5])).toBe(-1);
+    });
+
+    it('should return -1 for an not empty array', function () {
+      expect($scope.chop(6, [2, 3, 5])).toBe(-1);
     });
 
     it('should return 0 if exists in 0 position', function () {
       expect($scope.chop(3, [3])).toBe(0);
     });
 
-    xit('should return 2 if exists in 2 position', function () {
+    it('should return 2 if exists in 2 position', function () {
       expect($scope.chop(3, [1, 2, 3])).toBe(2);
     });
 
